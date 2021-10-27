@@ -4,8 +4,7 @@
 简介：了解在微信云托管上如何用GO语言创建简单的http服务。通过示例创建一张user表，并对其进行增删改查的操作，对应POST/DELETE/PUT/GET四种请求的实现。
 
 版本：
-Golang 1.17.1
-* 修改版本，需要同步修改[Dockerfile](https://github.com/WeixinCloud/wxcloudrun-golang/blob/main/Dockerfile)中的基础镜像。
+Golang 1.17.1（修改版本，需要同步修改[Dockerfile](https://github.com/WeixinCloud/wxcloudrun-golang/blob/main/Dockerfile)中的基础镜像）
 
 详细介绍：
 1. 一键部署时将默认开通微信云托管中的MySQL，并自动将数据库基本信息传入了环境变量中，可直接使用。（数据库信息获取及配置详情见:[init.go](https://github.com/WeixinCloud/wxcloudrun-golang/blob/main/db/init.go)。）
