@@ -6,12 +6,59 @@ import (
 	"log"
 	"net/http"
 	"reflect"
+	"regexp"
 	"strconv"
+	"strings"
 	"time"
 
 	"wxcloudrun-golang/db/dao"
 	"wxcloudrun-golang/db/model"
 )
+
+func RouteHandler(w http.ResponseWriter, r *http.Request) {
+	regex1, _ := regexp.Compile("^(/user)(/)?$")
+	regex2, _ := regexp.Compile("^(/user)/(\\d)+(/)?$")
+	path := r.URL.Path
+
+	if regex1.MatchString(path) {
+		AddOrUpdateUser(w, r)
+		return
+	}
+
+	if regex2.MatchString(path) {
+		QueryOrDelete(w, r)
+		return
+	}
+
+}
+
+func AddOrUpdateUser(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		AddUser(w, r)
+		return
+	}
+
+	if r.Method == http.MethodPut {
+		UpdateUser(w, r)
+		return
+	}
+
+	fmt.Fprint(w, "Request method error")
+}
+
+func QueryOrDelete(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodGet {
+		QueryUser(w, r)
+		return
+	}
+
+	if r.Method == http.MethodDelete {
+		DeleteUser(w, r)
+		return
+	}
+
+	fmt.Fprint(w, "Request method error")
+}
 
 func AddUser(w http.ResponseWriter, r *http.Request) {
 	log.Print("received a AddUser request.")
@@ -84,25 +131,16 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	query := r.URL.Query()
-	ids, ok := query["id"]
-	if !ok {
-		fmt.Fprintf(w, "DeleteUser need param id")
-		return
-	}
-
-	if len(ids) != 1 {
-		fmt.Fprintf(w, "DeleteUser only support query one user once")
-		return
-	}
-
-	id, err := strconv.Atoi(ids[0])
+	id := strings.TrimPrefix(r.URL.Path, "/user/")
+	var err error
+	var intId int
+	intId, err = strconv.Atoi(id)
 	if err != nil {
 		fmt.Fprintf(w, "%+v", err)
 		return
 	}
 
-	err = dao.Imp.DeleteUserById(int32(id))
+	err = dao.Imp.DeleteUserById(int32(intId))
 	if err != nil {
 		fmt.Fprintf(w, "%+v", err)
 		return
@@ -196,25 +234,16 @@ func QueryUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	query := r.URL.Query()
-	ids, ok := query["id"]
-	if !ok {
-		fmt.Fprintf(w, "QueryUser need param id")
-		return
-	}
-
-	if len(ids) != 1 {
-		fmt.Fprintf(w, "QueryUser only support query one user once")
-		return
-	}
-
-	id, err := strconv.Atoi(ids[0])
+	id := strings.TrimPrefix(r.URL.Path, "/user/")
+	var err error
+	var intId int
+	intId, err = strconv.Atoi(id)
 	if err != nil {
 		fmt.Fprintf(w, "%+v", err)
 		return
 	}
 
-	user, err := dao.Imp.QueryUserById(int32(id))
+	user, err := dao.Imp.QueryUserById(int32(intId))
 	if err != nil {
 		fmt.Fprintf(w, "%+v", err)
 		return
