@@ -15,6 +15,7 @@ import (
 	"wxcloudrun-golang/db/model"
 )
 
+// RouteHandler Restful路由
 func RouteHandler(w http.ResponseWriter, r *http.Request) {
 	regex1, _ := regexp.Compile("^(/user)(/)?$")
 	regex2, _ := regexp.Compile("^(/user)/(\\d)+(/)?$")
@@ -30,8 +31,10 @@ func RouteHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Fprint(w, fmt.Sprintf("url not match ant handler"))
 }
 
+// AddOrUpdateUser 新增或者更新用户
 func AddOrUpdateUser(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		AddUser(w, r)
@@ -46,6 +49,7 @@ func AddOrUpdateUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Request method error")
 }
 
+// QueryOrDelete 查询或者删除用户
 func QueryOrDelete(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		QueryUser(w, r)
@@ -60,6 +64,7 @@ func QueryOrDelete(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, "Request method error")
 }
 
+// AddUser 新增用户
 func AddUser(w http.ResponseWriter, r *http.Request) {
 	log.Print("received a AddUser request.")
 	if r.Method != http.MethodPost {
@@ -124,6 +129,7 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "add user success id[%d]", id)
 }
 
+// DeleteUser 删除用户
 func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	log.Print("received a DeleteUser request.")
 	if r.Method != http.MethodDelete {
@@ -149,6 +155,7 @@ func DeleteUser(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "delete success")
 }
 
+// UpdateUser 更新用户
 func UpdateUser(w http.ResponseWriter, r *http.Request) {
 	log.Print("received a UpdateUser request.")
 	if r.Method != http.MethodPut {
@@ -227,6 +234,7 @@ func UpdateUser(w http.ResponseWriter, r *http.Request) {
 
 }
 
+// QueryUser 查询用户
 func QueryUser(w http.ResponseWriter, r *http.Request) {
 	log.Print("received a QueryUser request.")
 	if r.Method != http.MethodGet {
