@@ -4,12 +4,12 @@ import "time"
 
 // UserModel ...
 type UserModel struct {
-	Id          int32     `gorm:"type:INT(32);column:id`
-	Name        string    `gorm:"type:VARCHAR(64);column:name`
-	Age         int32     `gorm:"type:INT(16);column:age`
-	Email       string    `gorm:"type:VARCHAR(32);column:email`
-	Phone       string    `gorm:"type:VARCHAR(32);column:phone`
-	Description string    `gorm:"type:VARCHAR(64);column:description`
-	CreateTime  time.Time `gorm:"type:TIMESTAMP;column:create_time`
-	UpdateTime  time.Time `gorm:"type:TIMESTAMP;column:update_time`
+	Id          int32     `gorm:"column:id" json:"id"`
+	Name        string    `gorm:"column:name" json:"name"`
+	Age         int32     `gorm:"column:age" json:"age"`
+	Email       string    `gorm:"column:email" json:"email"`
+	Phone       string    `gorm:"column:phone" json:"phone"`
+	Description string    `gorm:"column:description" json:"description"`
+	CreateTime  time.Time `gorm:"column:create_time" json:"create_time"`
+	UpdateTime  time.Time `gorm:"column:update_time" json:"update_time"`
 }

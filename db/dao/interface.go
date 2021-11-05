@@ -6,7 +6,7 @@ import (
 
 // UserInterface ...
 type UserInterface interface {
-	AddUser(*model.UserModel) (int32, error)
+	AddUser(*model.UserModel) (*model.UserModel, error)
 	DeleteUserById(int32) error
 	UpdateUserById(int32, *model.UserModel) error
 	QueryUserById(int32) (*model.UserModel, error)

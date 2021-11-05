@@ -22,23 +22,24 @@ Golang 1.17.1（修改版本，需要同步修改[Dockerfile](https://github.com
   
 * 请求示例：
 ```
-curl -X GET  http://{ip}:{port}/user/34
+curl -X GET  http://{ip}:{port}/user/8
 ```
 
 * 响应示例：
 ```
 {
-    "code": 0,
-    "data": {
-        "id": 34,
-        "name": "1231231232131",
-        "age": 10,
-        "email": "m1779387qqwewqeqwe3123@163.com",
-        "phone": "1779aqweqwea3873123@163.com",
-        "description": "111",
-        "create_time": "2021-11-03T12:25:13Z",
-        "update_time": "2021-11-03T12:25:13Z"
-    }
+	"code": 0,
+	"errorMsg": "",
+	"data": {
+		"id": 17,
+		"name": "1231231232131",
+		"age": 10,
+		"email": "m1779387qqwewqeqwe3123@163.com",
+		"phone": "1779aqweqwea3873123@163.com",
+		"description": "111",
+		"create_time": "2021-11-05T10:08:55+08:00",
+		"update_time": "2021-11-05T10:08:55+08:00"
+	}
 }
 ```
 
@@ -65,8 +66,18 @@ curl http://{ip}:{port}/user \
 * 响应示例：
 ```
 {
-    "code": 0,
-    "errorMsg": ""
+	"code": 0,
+	"errorMsg": "",
+	"data": {
+		"id": 17,
+		"name": "1231231232131",
+		"age": 10,
+		"email": "m1779387qqwewqeqwe3123@163.com",
+		"phone": "1779aqweqwea3873123@163.com",
+		"description": "111",
+		"create_time": "2021-11-05T10:08:54.634282677+08:00",
+		"update_time": "2021-11-05T10:08:54.634282677+08:00"
+	}
 }
 ```
 
@@ -81,20 +92,20 @@ curl http://{ip}:{port}/user \
   -X PUT \
   -H 'Content-Type: application/json' \
   -d '{  
-      "id":1,
-      "name":"1231231232131",
+      "id":17,
+      "name":"4585959595",
       "age":10,
       "email":"m1779387qqwewqeqwe3123@163.com",
       "phone":"1779aqweqwea3873123@163.com",
-      "description":"111"
+      "description":"222"
   }'
 ```
 
 * 响应示例：
 ```
 {
-    "code": 0,
-    "errorMsg": ""
+	"code": 0,
+	"errorMsg": ""
 }
 ```
 
@@ -105,7 +116,7 @@ curl http://{ip}:{port}/user \
   
 * 请求示例：
 ```
-curl http://{ip}:{port}/user/1 \
+curl http://{ip}:{port}/user/17 \
   -X DELETE \
   -H 'Content-Type: application/json' \
   -d '{   }'
@@ -114,8 +125,8 @@ curl http://{ip}:{port}/user/1 \
 * 响应示例：
 ```
 {
-    "code": 0,
-    "errorMsg": ""
+	"code": 0,
+	"errorMsg": ""
 }
 ```
 

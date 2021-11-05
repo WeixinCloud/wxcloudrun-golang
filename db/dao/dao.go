@@ -7,16 +7,16 @@ import (
 
 const tableName = "user"
 
-func (imp *UserInterfaceImp) AddUser(user *model.UserModel) (int32, error) {
+func (imp *UserInterfaceImp) AddUser(user *model.UserModel) (*model.UserModel, error) {
 	var err error
 
 	cli := db.Get()
 	err = cli.Table(tableName).Create(user).Error
 	if err != nil {
-		return 0, err
+		return nil, err
 	}
 
-	return user.Id, nil
+	return user, nil
 }
 
 func (imp *UserInterfaceImp) DeleteUserById(id int32) error {
