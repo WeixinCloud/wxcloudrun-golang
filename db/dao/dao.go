@@ -5,36 +5,46 @@ import (
 	"wxcloudrun-golang/db/model"
 )
 
-const tableName = "user"
+const tableName = "todo_list"
 
-func (imp *UserInterfaceImp) AddUser(user *model.UserModel) (*model.UserModel, error) {
+func (imp *ToDoItemInterfaceImp) GetToDoList() ([]*model.ToDoItemModel, error) {
+	var err error
+	var toDoList = []*model.ToDoItemModel{}
+
+	cli := db.Get()
+	err = cli.Table(tableName).Scan(&toDoList).Error
+
+	return toDoList, err
+}
+
+func (imp *ToDoItemInterfaceImp) AddToDoItem(toDoItem *model.ToDoItemModel) error {
 	var err error
 
 	cli := db.Get()
-	err = cli.Table(tableName).Create(user).Error
+	err = cli.Table(tableName).Create(toDoItem).Error
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return user, nil
+	return nil
 }
 
-func (imp *UserInterfaceImp) DeleteUserById(id int32) error {
+func (imp *ToDoItemInterfaceImp) DeleteToDoItemById(id int32) error {
 	cli := db.Get()
-	return cli.Table(tableName).Exec("delete from user where id = ?", id).Error
+	return cli.Table(tableName).Exec("delete from todo_list where id = ?", id).Error
 }
 
-func (imp *UserInterfaceImp) UpdateUserById(id int32, update *model.UserModel) error {
+func (imp *ToDoItemInterfaceImp) UpdateToDoItemById(id int32, update *model.ToDoItemModel) error {
 	cli := db.Get()
 	return cli.Table(tableName).Where("id = ?", id).Updates(update).Error
 }
 
-func (imp *UserInterfaceImp) QueryUserById(id int32) (*model.UserModel, error) {
+func (imp *ToDoItemInterfaceImp) QueryToDoItemById(id int32) (*model.ToDoItemModel, error) {
 	var err error
-	var user = new(model.UserModel)
+	var toDoItem = new(model.ToDoItemModel)
 
 	cli := db.Get()
-	err = cli.Table(tableName).Where("id = ?", id).First(user).Error
+	err = cli.Table(tableName).Where("id = ?", id).First(toDoItem).Error
 
-	return user, err
+	return toDoItem, err
 }

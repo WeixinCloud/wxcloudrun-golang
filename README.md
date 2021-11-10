@@ -1,7 +1,7 @@
 # wxcloudrun-golang
 微信云托管 Go语言HTTP服务端示例
 
-简介：了解在微信云托管上如何用GO语言创建简单的http服务。通过示例创建一张user表，并对其进行增删改查的操作，对应POST/DELETE/PUT/GET四种请求的实现。
+简介：了解在微信云托管上如何用GO语言创建简单的http服务。通过示例创建一张todo_list表，并对其进行增删改查的操作，对应POST/DELETE/PUT/GET四种请求的实现。
 
 版本：
 Golang 1.17.1（修改版本，需要同步修改[Dockerfile](https://github.com/WeixinCloud/wxcloudrun-golang/blob/main/Dockerfile)中的基础镜像）
@@ -15,14 +15,46 @@ Golang 1.17.1（修改版本，需要同步修改[Dockerfile](https://github.com
    
 示例API列表：
 
-1 根据ID查询用户
+1 查询所有todo项
 
 * URL路径：
-  ```/user/:id```
+  ```/api/todos```
   
 * 请求示例：
 ```
-curl -X GET  http://{ip}:{port}/user/8
+curl -X GET  http://{ip}:{port}/api/todos
+```
+
+* 响应示例：
+```
+{
+	"code": 0,
+	"errorMsg": "",
+	"data": [{
+		"id": 1,
+		"title": "工作1",
+		"status": "准备中",
+		"create_time": "2021-11-09T08:45:40Z",
+		"update_time": "2021-11-09T08:45:40Z"
+	}, {
+		"id": 2,
+		"title": "工作2",
+		"status": "已开始",
+		"create_time": "2021-11-09T08:46:11Z",
+		"update_time": "2021-11-09T08:46:11Z"
+	}]
+}
+```
+
+
+2 根据ID查询todo项
+
+* URL路径：
+  ```/api/todos/:id```
+  
+* 请求示例：
+```
+curl -X GET  http://{ip}:{port}/api/todos/1
 ```
 
 * 响应示例：
@@ -31,73 +63,29 @@ curl -X GET  http://{ip}:{port}/user/8
 	"code": 0,
 	"errorMsg": "",
 	"data": {
-		"id": 17,
-		"name": "1231231232131",
-		"age": 10,
-		"email": "m1779387qqwewqeqwe3123@163.com",
-		"phone": "1779aqweqwea3873123@163.com",
-		"description": "111",
-		"create_time": "2021-11-05T10:08:55+08:00",
-		"update_time": "2021-11-05T10:08:55+08:00"
+		"id": 1,
+		"title": "工作1",
+		"status": "准备中",
+		"create_time": "2021-11-09T08:45:40Z",
+		"update_time": "2021-11-09T08:45:40Z"
 	}
 }
 ```
 
 
-2 新增用户
+3 新增todo项目
 
 * URL路径：
-  ```/user```
+  ```/api/todos```
   
 * 请求示例：
 ```
-curl http://{ip}:{port}/user \
+curl http://{ip}:{port}/api/todos \
   -X POST \
   -H 'Content-Type: application/json' \
   -d '{  
-      "name":"1231231232131",
-      "age":10,
-      "email":"m1779387qqwewqeqwe3123@163.com",
-      "phone":"1779aqweqwea3873123@163.com",
-      "description":"111"
-  }'
-```
-
-* 响应示例：
-```
-{
-	"code": 0,
-	"errorMsg": "",
-	"data": {
-		"id": 17,
-		"name": "1231231232131",
-		"age": 10,
-		"email": "m1779387qqwewqeqwe3123@163.com",
-		"phone": "1779aqweqwea3873123@163.com",
-		"description": "111",
-		"create_time": "2021-11-05T10:08:54.634282677+08:00",
-		"update_time": "2021-11-05T10:08:54.634282677+08:00"
-	}
-}
-```
-
-3 根据ID修改用户
-
-* URL路径：
-  ```/user```
-  
-* 请求示例：
-```
-curl http://{ip}:{port}/user \
-  -X PUT \
-  -H 'Content-Type: application/json' \
-  -d '{  
-      "id":17,
-      "name":"4585959595",
-      "age":10,
-      "email":"m1779387qqwewqeqwe3123@163.com",
-      "phone":"1779aqweqwea3873123@163.com",
-      "description":"222"
+      "title":"工作1",
+      "status":"准备中"
   }'
 ```
 
@@ -109,14 +97,38 @@ curl http://{ip}:{port}/user \
 }
 ```
 
-4 根据ID删除用户
+4 根据ID修改todo项目
 
 * URL路径：
-  ```/user/:id```
+  ```/api/todos```
   
 * 请求示例：
 ```
-curl http://{ip}:{port}/user/17 \
+curl http://{ip}:{port}/api/todos \
+  -X PUT \
+  -H 'Content-Type: application/json' \
+  -d '{  
+      "id":1,
+      "status":"已完成"
+  }'
+```
+
+* 响应示例：
+```
+{
+	"code": 0,
+	"errorMsg": ""
+}
+```
+
+5 根据ID删除todo项
+
+* URL路径：
+  ```/api/todos/:id```
+  
+* 请求示例：
+```
+curl http://{ip}:{port}/api/todos/1 \
   -X DELETE \
   -H 'Content-Type: application/json' \
   -d '{   }'

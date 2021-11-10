@@ -4,16 +4,17 @@ import (
 	"wxcloudrun-golang/db/model"
 )
 
-// UserInterface ...
-type UserInterface interface {
-	AddUser(*model.UserModel) (*model.UserModel, error)
-	DeleteUserById(int32) error
-	UpdateUserById(int32, *model.UserModel) error
-	QueryUserById(int32) (*model.UserModel, error)
+// ToDoItemInterface ...
+type ToDoItemInterface interface {
+	GetToDoList() ([]*model.ToDoItemModel, error)
+	AddToDoItem(*model.ToDoItemModel) error
+	DeleteToDoItemById(int32) error
+	UpdateToDoItemById(int32, *model.ToDoItemModel) error
+	QueryToDoItemById(int32) (*model.ToDoItemModel, error)
 }
 
-// UserInterfaceImp 实现结构
-type UserInterfaceImp struct{}
+// ToDoItemInterfaceImp 实现结构
+type ToDoItemInterfaceImp struct{}
 
 // Imp 实现实例
-var Imp UserInterface = &UserInterfaceImp{}
+var Imp ToDoItemInterface = &ToDoItemInterfaceImp{}
