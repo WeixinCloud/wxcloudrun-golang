@@ -4,17 +4,15 @@ import (
 	"wxcloudrun-golang/db/model"
 )
 
-// ToDoItemInterface ...
-type ToDoItemInterface interface {
-	GetToDoList() ([]*model.ToDoItemModel, error)
-	AddToDoItem(*model.ToDoItemModel) error
-	DeleteToDoItemById(int32) error
-	UpdateToDoItemById(int32, *model.ToDoItemModel) error
-	QueryToDoItemById(int32) (*model.ToDoItemModel, error)
+// CounterInterface 计数器数据模型接口
+type CounterInterface interface {
+	GetCounter(id int32) (*model.CounterModel, error)
+	UpsertCounter(counter *model.CounterModel) error
+	ClearCounter(id int32) error
 }
 
-// ToDoItemInterfaceImp 实现结构
-type ToDoItemInterfaceImp struct{}
+// CounterInterfaceImp 计数器数据模型实现
+type CounterInterfaceImp struct{}
 
 // Imp 实现实例
-var Imp ToDoItemInterface = &ToDoItemInterfaceImp{}
+var Imp CounterInterface = &CounterInterfaceImp{}
