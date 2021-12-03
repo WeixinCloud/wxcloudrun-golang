@@ -12,7 +12,7 @@ COPY . /app/
 RUN GOOS=linux go build -o main .
 
 # 选用运行时所用基础镜像（GO语言选择原则：尽量体积小、包含基础linux内容的基础镜像）
-FROM alpine:latest
+FROM alpine:3.13
 
 # 指定运行时的工作目录
 WORKDIR /app
