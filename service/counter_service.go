@@ -101,7 +101,7 @@ func upsertCounter(r *http.Request) (int32, error) {
 		count = 1
 		createdAt = time.Now()
 	} else {
-		count = currentCounter.Count + 1
+		count = currentCounter.Count + 2
 		createdAt = currentCounter.CreatedAt
 	}
 
