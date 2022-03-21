@@ -14,6 +14,9 @@ RUN GOOS=linux go build -o main .
 # 选用运行时所用基础镜像（GO语言选择原则：尽量体积小、包含基础linux内容的基础镜像）
 FROM alpine:3.13
 
+# 容器默认时区为UTC，如需使用上海时间请启用以下时区设置命令
+# RUN apk add tzdata && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo Asia/Shanghai > /etc/timezone
+
 # 指定运行时的工作目录
 WORKDIR /app
 
