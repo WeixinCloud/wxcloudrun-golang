@@ -17,7 +17,7 @@
 ├── Dockerfile                Dockerfile 文件
 ├── LICENSE                   LICENSE 文件
 ├── README.md                 README 文件
-├── container.config.json     微信云托管流水线配置
+├── container.config.json     模板部署「服务设置」初始化配置（二开请忽略）
 ├── db                        数据库逻辑目录
 ├── go.mod                    go.mod 文件
 ├── go.sum                    go.sum 文件
